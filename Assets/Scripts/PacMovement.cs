@@ -16,14 +16,14 @@ public class PacMovement : MonoBehaviour
     public LayerMask groundMask;
 
     private CharacterController controller;
-    public DynamicJoystick joystick; // Reference to the DynamicJoystick
+    public Joystick joystick; // Reference to the Joystick (Fixed Position)
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         if (joystick == null)
         {
-            Debug.LogError("DynamicJoystick is not assigned. Please attach it in the Inspector.");
+            Debug.LogError("Joystick is not assigned. Please attach it in the Inspector.");
             enabled = false;
             return;
         }
