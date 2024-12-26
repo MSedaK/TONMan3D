@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene("Level3");
         }
+        if (Score == 103)
+        {
+            SceneManager.LoadScene("Level4");
+        }
     }
 
     public static void incrementScore()
