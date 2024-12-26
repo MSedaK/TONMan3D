@@ -1,62 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Terresquall;
 
 public class PacMovement : MonoBehaviour
 {
-    public float moveSpeed, boostSpeed, rotationSpeed;
+    public float moveSpeed = 5f;
+    public float boostSpeed = 10f;
+    public float rotationSpeed = 5f;
     public Vector3 velocity;
-    public Vector3 moveDirection, lookDirection;
+    public Vector3 moveDirection;
 
     public bool isGrounded;
-    public float gravity, groundCheckDistance;
+    public float gravity = -9.81f;
+    public float groundCheckDistance = 0.4f;
     public LayerMask groundMask;
 
-    public CharacterController controller;
-
-    // Joystick baðlantýsý
-    public VirtualJoystick joystick;
+    private CharacterController controller;
+    public DynamicJoystick joystick; // Reference to the DynamicJoystick
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        moveDirection = new Vector3(0, 0, 1);
+        if (joystick == null)
+        {
+            Debug.LogError("DynamicJoystick is not assigned. Please attach it in the Inspector.");
+            enabled = false;
+            return;
+        }
     }
 
     void Update()
     {
         isGrounded = Physics.CheckSphere(transform.position, groundCheckDistance, groundMask);
 
-        if (isGrounded)
+        if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = -2f; // Reset gravity effect when grounded
         }
 
-        // Joystick'ten deðerleri alýyoruz
-        float lookx = joystick.axis.x;
-        float lookz = joystick.axis.y;
+        // Get input from joystick
+        float lookx = joystick.Horizontal;
+        float lookz = joystick.Vertical;
 
-        // Yönlendirme ve hareket hesaplamasý
-        lookDirection = new Vector3(lookx, 0, lookz);
-        lookDirection.Normalize();
+        moveDirection = new Vector3(lookx, 0, lookz);
 
-        moveDirection = lookDirection;
-
-        // Oyuncuyu yönlendirme
-        if (moveDirection != Vector3.zero)
+        if (moveDirection.magnitude >= 0.1f)
         {
-            Quaternion toRotate = Quaternion.LookRotation(moveDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotate, rotationSpeed * Time.deltaTime);
+            // Rotate the character towards the movement direction
+            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-        // Hýz ve hareket
-        moveSpeed = Input.GetKey(KeyCode.LeftShift) ? boostSpeed : 9;
-        moveDirection *= moveSpeed;
+        // Adjust speed with boost
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? boostSpeed : moveSpeed;
+        Vector3 motion = moveDirection * currentSpeed;
+        controller.Move(motion * Time.deltaTime);
 
-        controller.Move(moveDirection * Time.deltaTime);
-
-        // Yerçekimi
+        // Apply gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
