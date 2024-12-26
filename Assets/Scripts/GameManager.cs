@@ -27,9 +27,12 @@ public class GameManager : MonoBehaviour
 
         if (Score == 35)
         {
-            SceneManager.LoadScene("RestartMenu");
+            SceneManager.LoadScene("Level2");
         }
-        
+        if (Score == 71)
+        {
+            SceneManager.LoadScene("Level3");
+        }
     }
 
     public static void incrementScore()
