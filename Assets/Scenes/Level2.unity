@@ -5282,7 +5282,7 @@ Transform:
   m_GameObject: {fileID: 679562299}
   serializedVersion: 2
   m_LocalRotation: {x: 0.59041953, y: 0.00000023137235, z: -0.000000118106115, w: 0.8070965}
-  m_LocalPosition: {x: 0.42999268, y: 20.45, z: -6.65}
+  m_LocalPosition: {x: 0.42999268, y: 15.95, z: -6.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12644,7 +12644,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txt: {fileID: 0}
-  coinCollectSound: {fileID: 8300000, guid: fb4232643f9165545b4fbd9851937129, type: 3}
 --- !u!4 &1165596026
 Transform:
   m_ObjectHideFlags: 0
