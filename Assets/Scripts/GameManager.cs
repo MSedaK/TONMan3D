@@ -25,23 +25,18 @@ public class GameManager : MonoBehaviour
         txt.text = scoreT;
         PlayerPrefs.SetInt(ScoreDisplay, Score); //its sets the score to the lates update.
 
-        if (Score == 20)
+        if (Score == 30)
         {
-
-            SceneManager.LoadScene("RestartMenu");
-
             SceneManager.LoadScene("Level2");
         }
-        if (Score == 35)
+        if (Score == 65)
         {
             SceneManager.LoadScene("Level3");
         }
-        if (Score == 60)
+        if (Score == 97)
         {
             SceneManager.LoadScene("Level4");
-
         }
-        
     }
 
     public static void incrementScore()

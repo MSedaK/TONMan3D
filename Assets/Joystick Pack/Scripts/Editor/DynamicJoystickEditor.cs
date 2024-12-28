@@ -1,35 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-[CustomEditor(typeof(DynamicJoystick))]
-public class DynamicJoystickEditor : JoystickEditor
+public class DynamicJoystick : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-    private SerializedProperty moveThreshold;
+    public RectTransform joystickBackground;
+    public RectTransform joystickHandle;
 
-    protected override void OnEnable()
+    private Vector2 inputVector;
+
+    public Vector2 InputVector => inputVector;
+
+    public void OnDrag(PointerEventData eventData)
     {
-        base.OnEnable();
-        moveThreshold = serializedObject.FindProperty("moveThreshold");
+        Vector2 position = RectTransformUtility.WorldToScreenPoint(null, joystickBackground.position);
+        Vector2 radius = joystickBackground.sizeDelta / 2;
+        inputVector = (eventData.position - position) / radius;
+
+        inputVector = inputVector.magnitude > 1 ? inputVector.normalized : inputVector;
+
+        joystickHandle.anchoredPosition = new Vector2(
+            inputVector.x * radius.x,
+            inputVector.y * radius.y
+        );
     }
 
-    public override void OnInspectorGUI()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        base.OnInspectorGUI();
-
-        if (background != null)
-        {
-            RectTransform backgroundRect = (RectTransform)background.objectReferenceValue;
-            backgroundRect.anchorMax = Vector2.zero;
-            backgroundRect.anchorMin = Vector2.zero;
-            backgroundRect.pivot = center;
-        }
+        OnDrag(eventData);
     }
 
-    protected override void DrawValues()
+    public void OnPointerUp(PointerEventData eventData)
     {
-        base.DrawValues();
-        EditorGUILayout.PropertyField(moveThreshold, new GUIContent("Move Threshold", "The distance away from the center input has to be before the joystick begins to move."));
+        inputVector = Vector2.zero;
+        joystickHandle.anchoredPosition = Vector2.zero;
     }
 }
