@@ -12549,7 +12549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb74aba838e8844bbd8c9eb88954d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 0}
+  scoreText: {fileID: 1523402641}
 --- !u!4 &1165596026
 Transform:
   m_ObjectHideFlags: 0
@@ -15605,7 +15605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5686bc51a7a1ffc4797e6df96ff39b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 1523402641}
+  scoreText: {fileID: 0}
 --- !u!114 &1523402641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15639,7 +15639,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SCORE
+  m_Text: 
 --- !u!222 &1523402642
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15663,7 +15663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1573216225
 Transform:
   m_ObjectHideFlags: 0
@@ -15776,6 +15776,50 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1590627450
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590627452}
+  - component: {fileID: 1590627451}
+  m_Layer: 0
+  m_Name: GameManagerInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1590627451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590627450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8d8cffafe45c5f4297fe3c0f64fdfe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1590627452
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590627450}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1149.0771, y: 443.12592, z: -102.49442}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1598939794
 GameObject:
   m_ObjectHideFlags: 0
@@ -18826,6 +18870,50 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.55, y: 1.1999999, z: 0.59999996}
   m_Center: {x: -1.2749997, y: 0.59999996, z: -0.29999998}
+--- !u!1 &2018170821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2018170823}
+  - component: {fileID: 2018170822}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2018170822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018170821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a170130fa27d094299332bf6e19f8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2018170823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018170821}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1149.0771, y: 443.12592, z: -102.49442}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2020546930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19893,3 +19981,5 @@ SceneRoots:
   - {fileID: 1748778407}
   - {fileID: 1498077496}
   - {fileID: 1506931970}
+  - {fileID: 1590627452}
+  - {fileID: 2018170823}

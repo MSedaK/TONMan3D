@@ -10,12 +10,34 @@ using UnityEngine.SceneManagement;
 
 public class Collection : MonoBehaviour
 {
+    private bool isCollected = false;
+
     public void OnTriggerEnter(Collider other)
-    {   
-        if (other.gameObject.name == "Player")
-            {   
-                GameManager.incrementScore();
-                Destroy(gameObject);
+    {
+        if (!isCollected && other.CompareTag("Player"))
+        {
+            isCollected = true;
+
+            // Disable collider immediately to prevent double collection
+            if (TryGetComponent<Collider>(out var collider))
+            {
+                collider.enabled = false;
             }
+
+            GameManager.IncrementScore();
+            StartCoroutine(CollectionEffect());
+        }
+    }
+
+    private IEnumerator CollectionEffect()
+    {
+        // Disable renderer for visual feedback
+        if (TryGetComponent<MeshRenderer>(out var renderer))
+        {
+            renderer.enabled = false;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+        Destroy(gameObject);
     }
 }

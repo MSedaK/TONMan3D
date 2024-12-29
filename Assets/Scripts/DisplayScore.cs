@@ -1,26 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-// responsible to get score n display at the end.
-
 public class DisplayScore : MonoBehaviour
-{   int Score;
-    public Text txt;
-    string scoreT, ScoreT1, ScoreDisplay;
-    // Start is called before the first frame update
+{
+    public Text scoreText;
+    private int lastDisplayedScore = -1;
+    private float updateCheckInterval = 0.1f;
+    private float nextUpdateCheck = 0f;
+
     void Start()
     {
-        Score = PlayerPrefs.GetInt(ScoreDisplay, 0); //this will get the score saved in the prefs.
+        _ = GameManager.Instance;
+        InitializeScoreDisplay();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        ScoreT1 = Score.ToString();
-        scoreT = "Score: " + ScoreT1;
-        txt.text = scoreT;
+        if (Time.time >= nextUpdateCheck)
+        {
+            nextUpdateCheck = Time.time + updateCheckInterval;
+            UpdateScoreIfNeeded();
+        }
+    }
+
+    private void InitializeScoreDisplay()
+    {
+        if (scoreText == null)
+        {
+            scoreText = GetComponent<Text>();
+        }
+
+        if (scoreText != null && GameManager.Instance != null)
+        {
+            UpdateScoreIfNeeded();
+            Debug.Log("Score display initialized successfully");
+        }
+        else
+        {
+            Debug.LogError("Failed to initialize score display!");
+        }
+    }
+
+    private void UpdateScoreIfNeeded()
+    {
+        if (scoreText != null && GameManager.Instance != null)
+        {
+            int currentScore = GameManager.GetCurrentScore();
+            if (currentScore != lastDisplayedScore)
+            {
+                lastDisplayedScore = currentScore;
+                scoreText.text = $"Score: {currentScore}";
+                Debug.Log($"Score display updated to: {currentScore}");
+            }
+        }
     }
 }
