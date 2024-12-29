@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+<<<<<<< Updated upstream
     private static GameManager instance;
     public static GameManager Instance { get; private set; }
 
@@ -18,6 +19,45 @@ public class GameManager : MonoBehaviour
     private bool isCheckingTransition = false;
 
     private readonly Dictionary<string, LevelData> levelRequirements = new Dictionary<string, LevelData>()
+=======
+    static int Score;
+    public Text txt;
+
+    void Start()
+    {
+        Score = PlayerPrefs.GetInt("Score", 0); // Ensure score persists across levels
+        UpdateScoreUI();
+    }
+
+    void Update()
+    {
+        UpdateScoreUI();
+
+        // Ensure level progression works without overriding logic
+        if (Score == 20)
+        {
+            SceneManager.LoadScene("Level2");
+        }
+        if (Score == 35)
+        {
+            SceneManager.LoadScene("Level3");
+        }
+        if (Score == 60)
+        {
+            SceneManager.LoadScene("Level4");
+        }
+    }
+
+    private void UpdateScoreUI()
+    {
+        if (txt != null)
+        {
+            txt.text = "Score: " + Score;
+        }
+    }
+
+    public static void incrementScore()
+>>>>>>> Stashed changes
     {
         {"Level1", new LevelData(33, "Level2", "First level")},
         {"Level2", new LevelData(41, "Level3", "Second level")},

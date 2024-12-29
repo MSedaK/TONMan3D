@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PacMovement : MonoBehaviour
 {
+<<<<<<< Updated upstream
     public float moveSpeed = 9f; // Varsayýlan hareket hýzý
     public float boostSpeed = 15f; // Boost hareket hýzý
     public float rotationSpeed = 720f; // Döndürme hýzý
@@ -16,14 +17,37 @@ public class PacMovement : MonoBehaviour
     private Vector3 velocity;
     private Vector3 moveDirection;
     private bool isGrounded;
+=======
+    public float moveSpeed = 5f;
+    public float boostSpeed = 10f;
+    public float rotationSpeed = 5f;
+    public Vector3 velocity;
+    public Vector3 moveDirection;
+
+    public bool isGrounded;
+    public float gravity = -9.81f;
+    public float groundCheckDistance = 0.4f;
+    public LayerMask groundMask;
+
+    private CharacterController controller;
+    public Joystick joystick; // Reference to the Joystick (Fixed Position)
+>>>>>>> Stashed changes
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+<<<<<<< Updated upstream
 
         if (joystick == null)
         {
             Debug.LogError("Joystick referansý atanmadý. Lütfen Inspector'dan atanmasýný saðlayýn.");
+=======
+        if (joystick == null)
+        {
+            Debug.LogError("Joystick is not assigned. Please attach it in the Inspector.");
+            enabled = false;
+            return;
+>>>>>>> Stashed changes
         }
     }
 
@@ -41,6 +65,7 @@ public class PacMovement : MonoBehaviour
 
         if (isGrounded && velocity.y < 0)
         {
+<<<<<<< Updated upstream
             velocity.y = -2f; // Zemine yapýþmayý saðlamak için küçük bir negatif deðer
         }
     }
@@ -75,6 +100,30 @@ public class PacMovement : MonoBehaviour
     void ApplyGravity()
     {
         // Yerçekimi uygula
+=======
+            velocity.y = -2f; // Reset gravity effect when grounded
+        }
+
+        // Get input from joystick
+        float lookx = joystick.Horizontal;
+        float lookz = joystick.Vertical;
+
+        moveDirection = new Vector3(lookx, 0, lookz);
+
+        if (moveDirection.magnitude >= 0.1f)
+        {
+            // Rotate the character towards the movement direction
+            Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // Adjust speed with boost
+        float currentSpeed = Input.GetKey(KeyCode.LeftShift) ? boostSpeed : moveSpeed;
+        Vector3 motion = moveDirection * currentSpeed;
+        controller.Move(motion * Time.deltaTime);
+
+        // Apply gravity
+>>>>>>> Stashed changes
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
